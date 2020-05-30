@@ -24,21 +24,16 @@ class knnClassifier:
         '''
 
         dataSetSize = self.xtrain.shape[0]
-        
         diffMat = np.tile(inputX, (dataSetSize,1)) - self.xtrain
         # np.tile(inputX, (dataSetSize,1)) repeats the input data so that the size of the input vector is the sanme as that of train data(to allow subtraction)
-        
         sqDiffMat = diffMat**2
-
         sqDistances = sqDiffMat.sum(axis=1)  # the square of differences are summed row-wise(for all the different features)
-
         distances = sqDistances**0.5    # the square root of the sum is taken to get the distance to each existing data point
-        print(distances)
+       
 
         # sorting the distances
         sortedDistIndicies = distances.argsort()
-        print("Sorted Indices: ", sortedDistIndicies)
-
+        
         classCount={}
         for i in range(k):
             voteIlabel = self.labels[sortedDistIndicies[i]]
